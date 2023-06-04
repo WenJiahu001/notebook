@@ -1,14 +1,14 @@
 #helm笔记
-- 仓库
+## 仓库
 仓库列表 `helm repo list`  
 添加仓库`helm repo add bitnami https://charts.bitnami.com/bitnami`  
 移除 `helm repo remove`  
 `helm search repo bitnami`  
 仓库更新`helm repo update`  
-- charts
+## charts
 本地搜索`helm search repo`  
 公开搜索 `helm search hub wordpress`  
-安装 `helm install test bitnami/wordpress`  
+安装 `helm install test bitnami/wordpress --namespace mynamespace`  
 安装状态`helm status test`  
 可配置项 `helm show values`  
 示例指定配置value,不使用默认 `helm install -f values.yaml bitnami/wordpress --generate-name*`   
@@ -20,7 +20,7 @@
 --set servers[0].port=80
 ```
 查看配置 `helm get values test`  
- - 升级 回滚  
+## 升级 回滚  
  升级 `helm upgrade -f panda.yaml happy-panda bitnami/wordpress`  
  回滚 `helm rollback happy-panda 1`  
  查看版本 `helm history [RELEASE]`  
@@ -47,7 +47,7 @@ data:
  
 只渲染模板 `helm install --debug --dry-run goodly-guppy ./mychart`   使用--dry-run会让你变得更容易测试
 
-- 内置对象  
+## 内置对象  
   - Release： Release对象描述了版本发布本身。包含了以下对象
   - Release.Name： release名称
   - Release.Namespace： 版本中包含的命名空间(如果manifest没有覆盖的话)
@@ -57,7 +57,7 @@ data:
   - Release.Service： 该service用来渲染当前模板。Helm里始终Helm
 
 
-- values 文件
+## values 文件
   其内容来自于多个位置：
   - chart中的values.yaml文件 
   - 如果是子chart，就是父chart中的values.yaml文件
@@ -65,7 +65,18 @@ data:
   - 使用--set (比如helm install --set foo=bar ./mychart)传递的单个参数
     优先级为values.yaml最低，--set参数最高。  
   - values实例 `{{ .Values.favoriteDrink }}`  
-- NOTES.txt
+  让用户在控制台输入变量
+```shell
+#!/bin/bash
+
+# 从用户输入读取变量的值
+read -p "请输入变量的值：" myVariable
+
+# 使用 Helm 安装并设置变量的值
+helm install mychart ./mychart --set myVariable="$myVariable"
+
+```
+## NOTES.txt
 一个示例
 ```
 Thank you for installing {{ .Chart.Name }}.
@@ -116,7 +127,7 @@ a[b-d].txt
 temp?
 ```
 
-- 模板调试 
+## 模板调试 
 - helm lint 是验证chart是否遵循最佳实践的首选工具。
 - helm template --debug 在本地测试渲染chart模板。
 - helm install --dry-run --debug：我们已经看到过这个技巧了，这是让服务器渲染模板的好方法，然后返回生成的清单文件。
