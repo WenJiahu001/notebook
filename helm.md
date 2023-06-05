@@ -5,8 +5,6 @@
 移除 `helm repo remove`  
 `helm search repo bitnami`  
 仓库更新`helm repo update`  
-
-
 ## charts
 本地搜索`helm search repo`  
 公开搜索 `helm search hub wordpress`  
