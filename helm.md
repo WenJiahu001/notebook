@@ -13,6 +13,8 @@
 可配置项 `helm show values`  
 示例指定配置value,不使用默认 `helm install -f values.yaml bitnami/wordpress --generate-name*`   
 指定配置文件set优先级最高    
+拉取指定版本 `helm pull kubernetes-dashboard/kubernetes-dashboard --version=5.10.0`
+
 ```
 --set a=b,c=d
 --set name={a, b, c}

@@ -1,0 +1,2 @@
+镜像名：docker:dind
+环境变量：DOCKER_TLS_CERTDIR设为空，表示不开启tls
